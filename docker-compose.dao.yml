@@ -9,19 +9,18 @@ slave:
   environment:
     - affinity:service!=master
     - affinity:service!=slave
-  labels: 
+  labels:
     aliyun.scale: "2"
   restart: always
   links:
     - master:redis-master
 sentinel:
-  image: registry.aliyuncs.com/acs-sample/redis-sentinel:3
+  image: daocloud.io/yontact/redis-sentinel
   environment:
     - affinity:service!=sentinel
-  labels: 
+  labels:
     aliyun.scale: "3"
   restart: always
   links:
     - master:redis-master
     - slave
-    
