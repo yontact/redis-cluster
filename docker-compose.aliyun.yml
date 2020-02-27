@@ -1,5 +1,6 @@
 master:
   image: redis:3.2-alpine
+  mem_limit: 50m
   environment:
     - affinity:service!=slave
   restart: always
@@ -7,6 +8,7 @@ master:
     - /data/redis:/data
 slave:
   image: redis:3.2-alpine
+  mem_limit: 50m
   command: redis-server --slaveof redis-master 6379
   environment:
     - affinity:service!=master
@@ -20,6 +22,7 @@ slave:
     - /data/redis:/data
 sentinel:
   image: registry-internal.cn-hangzhou.aliyuncs.com/yontact/redis-sentinel:3.2-alpine
+  mem_limit: 20m
   environment:
     - affinity:service!=sentinel
   labels:
